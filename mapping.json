@@ -1,0 +1,19 @@
+{
+  "question_xpath": "//question",
+  "title": "stem",
+  "text": "stem",
+  "text_format": "html",
+  "answer_list": "answer/option",
+  "answer_text": "text",
+  "answer_is_correct": "@correct",
+  "true_values": [
+    "Yes",
+    "yes",
+    "1",
+    "true",
+    "si",
+    "sí"
+  ],
+  "feedback": null,
+  "question_feedback": null
+}

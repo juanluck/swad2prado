@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/top/Ejemplo PRADO</text>
+    </category>
+    <info format="moodle_auto_format">
+      <text></text>
+    </info>
+    <idnumber></idnumber>
+  </question>
+  <question type="truefalse">
+    <name><text>Ejemplo V/F</text></name>
+    <questiontext format="html">
+      <text><![CDATA[<p>El Sol es una estrella.</p>]]></text>
+    </questiontext>
+    <answer fraction="100"><text>True</text></answer>
+    <answer fraction="0"><text>False</text></answer>
+  </question>
+</quiz>

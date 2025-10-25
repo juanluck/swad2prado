@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swad>
+  <quiz>
+    <question type="uniqueChoice">
+      <stem>¿Cuál es la capital de Francia?</stem>
+      <answer>
+        <option correct="No"><text>Madrid</text></option>
+        <option correct="Yes"><text>París</text></option>
+        <option correct="No"><text>Roma</text></option>
+        <option correct="No"><text>Berlín</text></option>
+      </answer>
+    </question>
+    <question type="uniqueChoice">
+      <stem>¿En qué continente está el río Nilo?</stem>
+      <answer>
+        <option correct="Yes"><text>África</text></option>
+        <option correct="No"><text>Europa</text></option>
+        <option correct="No"><text>Asia</text></option>
+        <option correct="No"><text>América</text></option>
+      </answer>
+    </question>
+    <question type="uniqueChoice">
+      <stem>¿Quién pintó la Mona Lisa?</stem>
+      <answer>
+        <option correct="No"><text>Pablo Picasso</text></option>
+        <option correct="Yes"><text>Leonardo da Vinci</text></option>
+        <option correct="No"><text>Claude Monet</text></option>
+        <option correct="No"><text>Vincent van Gogh</text></option>
+      </answer>
+    </question>
+    <question type="uniqueChoice">
+      <stem>¿Cuál es el planeta más grande del sistema solar?</stem>
+      <answer>
+        <option correct="No"><text>Tierra</text></option>
+        <option correct="No"><text>Marte</text></option>
+        <option correct="Yes"><text>Júpiter</text></option>
+        <option correct="No"><text>Venus</text></option>
+      </answer>
+    </question>
+    <question type="uniqueChoice">
+      <stem>¿Qué idioma tiene más hablantes nativos?</stem>
+      <answer>
+        <option correct="Yes"><text>Chino mandarín</text></option>
+        <option correct="No"><text>Inglés</text></option>
+        <option correct="No"><text>Español</text></option>
+        <option correct="No"><text>Hindi</text></option>
+      </answer>
+    </question>
+  </quiz>
+</swad>

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
 SWAD → PRADO (Moodle XML) converter (CLI)
 
 - Usa CDATA con HTML (<p>…</p>) para los enunciados.
@@ -24,7 +25,7 @@ import argparse
 import json
 import sys
 import xml.etree.ElementTree as ET
-from typing import List, Optional
+from typing import List
 
 TRUE_FALSE_ALIASES = {
     "true": {"true", "verdadero", "cierto", "v", "verdad", "t", "verdadeiro"},
@@ -85,7 +86,20 @@ class Question:
 def parse_swad(xml_path: str, mapping: dict) -> List[Question]:
     tree = ET.parse(xml_path)
     root = tree.getroot()
-    nodes = root.findall(mapping.get("question_xpath", ".//question"))
+
+    qpath = mapping.get("question_xpath", ".//question")
+
+    # Normaliza para ElementTree:
+    # - Si empieza por "//", conviértelo a ".//" porque vamos a buscar sobre 'root' (un Element)
+    # - Si empieza por "/", usamos tree.findall (ruta absoluta desde la raíz del documento)
+    if qpath.startswith("//"):
+        qpath_eff = "." + qpath      # "//question" -> ".//question"
+        nodes = root.findall(qpath_eff)
+    elif qpath.startswith("/"):
+        nodes = tree.findall(qpath)  # ruta absoluta desde el documento
+    else:
+        nodes = root.findall(qpath)  # relativo al root
+
     questions: List[Question] = []
     for qnode in nodes:
         title = get_text(qnode, mapping["title"])
@@ -97,7 +111,7 @@ def parse_swad(xml_path: str, mapping: dict) -> List[Question]:
             flag = get_text(an, mapping["answer_is_correct"])
             is_correct = truthy(flag, mapping["true_values"])
             choices.append(Choice(atext, is_correct))
-        questions.append(Question(title, qtext, mapping.get("text_format","html"), choices))
+        questions.append(Question(title, qtext, mapping.get("text_format", "html"), choices))
     return questions
 
 def build_moodle_xml_with_markers(questions: List[Question], category: str, shuffle: bool):
@@ -118,7 +132,8 @@ def build_moodle_xml_with_markers(questions: List[Question], category: str, shuf
         ET.SubElement(qtext, "text").text = marker
         html = f"<p>{q.text}</p>"
         qtext_map[marker] = html
-        ET.SubElement(qel, "generalfeedback", {"format":"html"}); qgf = qel.find("generalfeedback"); ET.SubElement(qgf,"text").text = ""
+        ET.SubElement(qel, "generalfeedback", {"format":"html"})
+        qgf = qel.find("generalfeedback"); ET.SubElement(qgf,"text").text = ""
         ET.SubElement(qel, "defaultgrade").text = "1.0000000"
         ET.SubElement(qel, "penalty").text = "0.3333333"
         ET.SubElement(qel, "hidden").text = "0"
@@ -134,12 +149,12 @@ def build_moodle_xml_with_markers(questions: List[Question], category: str, shuf
         for cobj in q.choices:
             frac = str(int(fraction_each)) if cobj.correct else "-25"
             a = ET.SubElement(qel, "answer", {"fraction": frac, "format": "html"})
-            t = ET.SubElement(a, "text"); t.text = cobj.text
+            ET.SubElement(a, "text").text = cobj.text
             fb = ET.SubElement(a, "feedback", {"format":"html"}); ET.SubElement(fb,"text").text = ""
     return quiz, qtext_map
 
 def indent(elem, level=0):
-    i = "\\n" + level*"  "
+    i = "\n" + level*"  "   # <-- salto de línea real
     if len(elem):
         if not elem.text or not elem.text.strip():
             elem.text = i + "  "

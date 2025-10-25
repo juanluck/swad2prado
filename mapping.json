@@ -1,5 +1,5 @@
 {
-  "question_xpath": "//question",
+  "question_xpath": ".//question",
   "title": "stem",
   "text": "stem",
   "text_format": "html",

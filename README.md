@@ -15,7 +15,7 @@ Conversor **SWAD → PRADO/Moodle XML** en modo CLI.
 ### 1️⃣ Clonar o copiar el proyecto
 Descarga o clona el repositorio:
 ```bash
-git clone https://github.com/tuusuario/swad2prado.git
+git clone https://github.com/juanluck/swad2prado.git
 cd swad2prado
 ```
 
